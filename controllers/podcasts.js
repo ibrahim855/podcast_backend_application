@@ -1,6 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 const Podcast = require('../models/Podcast');
+const Like = require('../models/Like');
 
 exports.addPodcast = (req, res) => {
   //DO STUFF
@@ -104,5 +105,21 @@ exports.deletePodcast = (req, res) => {
     } else {
       res.status(404).json({ message: 'Podcast non trovato.' });
     }
+  });
+};
+
+
+exports.getPodcastDetails = async (req, res) => {
+  const podcastId = req.params.podcastId;
+
+  const podcast = await Podcast.findOne({podcastId:podcastId});
+  const likes = await Like.find({podcastId:podcastId});
+
+
+  console.log(podcast, likes);
+
+  res.status(200).json({
+    podcast,
+    likes
   });
 };

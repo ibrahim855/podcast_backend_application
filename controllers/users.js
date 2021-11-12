@@ -27,10 +27,10 @@ exports.login = async (req, res) => {
         username: username,
       });
     } else {
-      res.status(200).json({ message: 'Credenziali sbagliate.' });
+      res.status(400).json({ message: 'Credenziali sbagliate.' });
     }
   } else {
-    res.status(200).json({ message: 'Utente non trovato.' });
+    res.status(400).json({ message: 'Utente non trovato.' });
   }
 };
 
@@ -39,7 +39,7 @@ exports.register = (req, res) => {
 
   User.findOne({ username: username }).then((user) => {
     if (user) {
-      res.status(201).json({
+      res.status(400).json({
         message: 'Nome utente già occupato.',
       });
     } else {
