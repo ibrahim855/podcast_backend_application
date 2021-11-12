@@ -3,7 +3,7 @@ const app = express();
 const mongoose = require('mongoose');
 
 require('dotenv').config();
-
+const cors = require('cors');
 const MONGODB = require('./utility/url.mongo');
 
 
@@ -19,6 +19,20 @@ const likeRoutes = require('./routes/likes');
 
 
 app.use(bodyParser.json());
+
+
+
+//CORS
+app.use((req,res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'authorization, Content-Type');
+  // res.setHeader('Access-Control-Allow-Credentials', true);
+  next();
+});
+
+app.use(cors({origin:true, credentials:true}));
+
 
 
 //ROUTERS

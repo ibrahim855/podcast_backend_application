@@ -14,6 +14,7 @@ const imageStorage = multer.diskStorage({
     }
 });
 
+
 const imageUpload = multer({
     storage:imageStorage,
     // limits:{
@@ -22,6 +23,7 @@ const imageUpload = multer({
     fileFilter(req, file, cb) {
         if (!file.originalname.match(/\.(mp3|mp4)$/)) { 
            // upload only png and jpg format
+           console.log("hello world");
            return cb(new Error('Please upload a Image'))
          }
        cb(undefined, true)

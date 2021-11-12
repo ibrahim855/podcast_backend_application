@@ -7,25 +7,29 @@ const jwt = require('jsonwebtoken');
 const Authentication = (req, res, next) => {
     //getting the token and verify the token
     const rawToken = req.headers.authorization;
-    const token = rawToken.split(' ')[1];
 
-    if(!token) {
-        res.status(400).json({
-            message:'Non Autenticato.'
-        });
-    } else {
-        jwt.verify(token, SECRET, function(err, decoded) {
-        if(err) {
+    if(rawToken) {
+        const token = rawToken.split(' ')[1];
+
+        if(!token) {
             res.status(400).json({
-                message:'Non Autorizzato.'
+                message:'Non Autenticato.'
             });
         } else {
-           req.username = decoded.username;
-           next(); 
+            jwt.verify(token, SECRET, function(err, decoded) {
+            if(err) {
+                res.status(400).json({
+                    message:'Non Autorizzato.'
+                });
+            } else {
+               req.username = decoded.username;
+               next(); 
+            };
+        });
         };
-    });
-    };
-    
+    } else {
+        res.status(404).json({ message: 'Non Autorizzato'});
+    }
 }
 
 module.exports = Authentication;
