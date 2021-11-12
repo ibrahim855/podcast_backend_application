@@ -1,7 +1,5 @@
 /node_modules
 
-/podcasts
+.env
 
-/.env
-
-/package-lock.json
+/controllers
