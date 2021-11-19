@@ -111,7 +111,8 @@ exports.deletePodcast = (req, res) => {
 
 exports.getPodcastDetails = async (req, res) => {
   const podcastId = req.params.podcastId;
-
+  
+  
   const podcast = await Podcast.findOne({podcastId:podcastId});
   const likes = await Like.find({podcastId:podcastId});
 
